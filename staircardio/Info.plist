@@ -2,9 +2,26 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>staircardio</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>staircardio</string>
+			</array>
+		</dict>
+	</array>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>remote-notification</string>
+		<string>processing</string>
+		<string>fetch</string>
 	</array>
+	<key>NSHealthShareUsageDescription</key>
+	<string>StairCardio uses Health data to read stair workouts, steps, and heart rate for accurate session tracking.</string>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>StairCardio saves stair workouts to Health so your sessions and calorie burn are recorded.</string>
 </dict>
 </plist>

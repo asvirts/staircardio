@@ -6,7 +6,32 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		A17661102F1C306B008322F2 /* staircardioWatch Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = A17660F02F1C3068008322F2 /* staircardioWatch Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
+		A17660FD2F1C306B008322F2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A1CC5A0D2F1BDCAC0035E007 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A17660EF2F1C3068008322F2;
+			remoteInfo = "staircardioWatch Watch App";
+		};
+		A17661072F1C306B008322F2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A1CC5A0D2F1BDCAC0035E007 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A17660EF2F1C3068008322F2;
+			remoteInfo = "staircardioWatch Watch App";
+		};
+		A176610E2F1C306B008322F2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A1CC5A0D2F1BDCAC0035E007 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A17660EF2F1C3068008322F2;
+			remoteInfo = "staircardioWatch Watch App";
+		};
 		A1CC5A272F1BDCAE0035E007 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = A1CC5A0D2F1BDCAC0035E007 /* Project object */;
@@ -23,7 +48,24 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		A17661142F1C306B008322F2 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				A17661102F1C306B008322F2 /* staircardioWatch Watch App.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		A17660F02F1C3068008322F2 /* staircardioWatch Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "staircardioWatch Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A17660FC2F1C306B008322F2 /* staircardioWatch Watch AppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "staircardioWatch Watch AppTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A17661062F1C306B008322F2 /* staircardioWatch Watch AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "staircardioWatch Watch AppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1CC5A152F1BDCAC0035E007 /* staircardio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = staircardio.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1CC5A262F1BDCAE0035E007 /* staircardioTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = staircardioTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1CC5A302F1BDCAE0035E007 /* staircardioUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = staircardioUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -40,6 +82,21 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		A17660F12F1C3068008322F2 /* staircardioWatch Watch App */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "staircardioWatch Watch App";
+			sourceTree = "<group>";
+		};
+		A17660FF2F1C306B008322F2 /* staircardioWatch Watch AppTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "staircardioWatch Watch AppTests";
+			sourceTree = "<group>";
+		};
+		A17661092F1C306B008322F2 /* staircardioWatch Watch AppUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "staircardioWatch Watch AppUITests";
+			sourceTree = "<group>";
+		};
 		A1CC5A172F1BDCAC0035E007 /* staircardio */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
@@ -61,6 +118,27 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		A17660ED2F1C3068008322F2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A17660F92F1C306B008322F2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A17661032F1C306B008322F2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A1CC5A122F1BDCAC0035E007 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -91,6 +169,9 @@
 				A1CC5A172F1BDCAC0035E007 /* staircardio */,
 				A1CC5A292F1BDCAE0035E007 /* staircardioTests */,
 				A1CC5A332F1BDCAE0035E007 /* staircardioUITests */,
+				A17660F12F1C3068008322F2 /* staircardioWatch Watch App */,
+				A17660FF2F1C306B008322F2 /* staircardioWatch Watch AppTests */,
+				A17661092F1C306B008322F2 /* staircardioWatch Watch AppUITests */,
 				A1CC5A162F1BDCAC0035E007 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -101,6 +182,9 @@
 				A1CC5A152F1BDCAC0035E007 /* staircardio.app */,
 				A1CC5A262F1BDCAE0035E007 /* staircardioTests.xctest */,
 				A1CC5A302F1BDCAE0035E007 /* staircardioUITests.xctest */,
+				A17660F02F1C3068008322F2 /* staircardioWatch Watch App.app */,
+				A17660FC2F1C306B008322F2 /* staircardioWatch Watch AppTests.xctest */,
+				A17661062F1C306B008322F2 /* staircardioWatch Watch AppUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -108,6 +192,74 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		A17660EF2F1C3068008322F2 /* staircardioWatch Watch App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A17661112F1C306B008322F2 /* Build configuration list for PBXNativeTarget "staircardioWatch Watch App" */;
+			buildPhases = (
+				A17660EC2F1C3068008322F2 /* Sources */,
+				A17660ED2F1C3068008322F2 /* Frameworks */,
+				A17660EE2F1C3068008322F2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				A17660F12F1C3068008322F2 /* staircardioWatch Watch App */,
+			);
+			name = "staircardioWatch Watch App";
+			packageProductDependencies = (
+			);
+			productName = "staircardioWatch Watch App";
+			productReference = A17660F02F1C3068008322F2 /* staircardioWatch Watch App.app */;
+			productType = "com.apple.product-type.application";
+		};
+		A17660FB2F1C306B008322F2 /* staircardioWatch Watch AppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A17661152F1C306B008322F2 /* Build configuration list for PBXNativeTarget "staircardioWatch Watch AppTests" */;
+			buildPhases = (
+				A17660F82F1C306B008322F2 /* Sources */,
+				A17660F92F1C306B008322F2 /* Frameworks */,
+				A17660FA2F1C306B008322F2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A17660FE2F1C306B008322F2 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				A17660FF2F1C306B008322F2 /* staircardioWatch Watch AppTests */,
+			);
+			name = "staircardioWatch Watch AppTests";
+			packageProductDependencies = (
+			);
+			productName = "staircardioWatch Watch AppTests";
+			productReference = A17660FC2F1C306B008322F2 /* staircardioWatch Watch AppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		A17661052F1C306B008322F2 /* staircardioWatch Watch AppUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A17661182F1C306B008322F2 /* Build configuration list for PBXNativeTarget "staircardioWatch Watch AppUITests" */;
+			buildPhases = (
+				A17661022F1C306B008322F2 /* Sources */,
+				A17661032F1C306B008322F2 /* Frameworks */,
+				A17661042F1C306B008322F2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A17661082F1C306B008322F2 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				A17661092F1C306B008322F2 /* staircardioWatch Watch AppUITests */,
+			);
+			name = "staircardioWatch Watch AppUITests";
+			packageProductDependencies = (
+			);
+			productName = "staircardioWatch Watch AppUITests";
+			productReference = A17661062F1C306B008322F2 /* staircardioWatch Watch AppUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		A1CC5A142F1BDCAC0035E007 /* staircardio */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = A1CC5A392F1BDCAE0035E007 /* Build configuration list for PBXNativeTarget "staircardio" */;
@@ -115,10 +267,12 @@
 				A1CC5A112F1BDCAC0035E007 /* Sources */,
 				A1CC5A122F1BDCAC0035E007 /* Frameworks */,
 				A1CC5A132F1BDCAC0035E007 /* Resources */,
+				A17661142F1C306B008322F2 /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				A176610F2F1C306B008322F2 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				A1CC5A172F1BDCAC0035E007 /* staircardio */,
@@ -186,6 +340,17 @@
 				LastSwiftUpdateCheck = 2620;
 				LastUpgradeCheck = 2620;
 				TargetAttributes = {
+					A17660EF2F1C3068008322F2 = {
+						CreatedOnToolsVersion = 26.2;
+					};
+					A17660FB2F1C306B008322F2 = {
+						CreatedOnToolsVersion = 26.2;
+						TestTargetID = A17660EF2F1C3068008322F2;
+					};
+					A17661052F1C306B008322F2 = {
+						CreatedOnToolsVersion = 26.2;
+						TestTargetID = A17660EF2F1C3068008322F2;
+					};
 					A1CC5A142F1BDCAC0035E007 = {
 						CreatedOnToolsVersion = 26.2;
 					};
@@ -216,11 +381,35 @@
 				A1CC5A142F1BDCAC0035E007 /* staircardio */,
 				A1CC5A252F1BDCAE0035E007 /* staircardioTests */,
 				A1CC5A2F2F1BDCAE0035E007 /* staircardioUITests */,
+				A17660EF2F1C3068008322F2 /* staircardioWatch Watch App */,
+				A17660FB2F1C306B008322F2 /* staircardioWatch Watch AppTests */,
+				A17661052F1C306B008322F2 /* staircardioWatch Watch AppUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		A17660EE2F1C3068008322F2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A17660FA2F1C306B008322F2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A17661042F1C306B008322F2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A1CC5A132F1BDCAC0035E007 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -245,6 +434,27 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		A17660EC2F1C3068008322F2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A17660F82F1C306B008322F2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A17661022F1C306B008322F2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A1CC5A112F1BDCAC0035E007 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -269,6 +479,21 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		A17660FE2F1C306B008322F2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A17660EF2F1C3068008322F2 /* staircardioWatch Watch App */;
+			targetProxy = A17660FD2F1C306B008322F2 /* PBXContainerItemProxy */;
+		};
+		A17661082F1C306B008322F2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A17660EF2F1C3068008322F2 /* staircardioWatch Watch App */;
+			targetProxy = A17661072F1C306B008322F2 /* PBXContainerItemProxy */;
+		};
+		A176610F2F1C306B008322F2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A17660EF2F1C3068008322F2 /* staircardioWatch Watch App */;
+			targetProxy = A176610E2F1C306B008322F2 /* PBXContainerItemProxy */;
+		};
 		A1CC5A282F1BDCAE0035E007 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = A1CC5A142F1BDCAC0035E007 /* staircardio */;
@@ -282,6 +507,164 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		A17661122F1C306B008322F2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "staircardioWatch Watch App/staircardioWatch Watch App.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = H4ND8LAYMT;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = staircardioWatch;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = dev.virts.staircardio;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.virts.staircardio.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 26.2;
+			};
+			name = Debug;
+		};
+		A17661132F1C306B008322F2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "staircardioWatch Watch App/staircardioWatch Watch App.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = H4ND8LAYMT;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = staircardioWatch;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = dev.virts.staircardio;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.virts.staircardio.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 26.2;
+			};
+			name = Release;
+		};
+		A17661162F1C306B008322F2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = H4ND8LAYMT;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "dev.virts.staircardioWatch-Watch-AppTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/staircardioWatch Watch App.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/staircardioWatch Watch App";
+				WATCHOS_DEPLOYMENT_TARGET = 26.2;
+			};
+			name = Debug;
+		};
+		A17661172F1C306B008322F2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = H4ND8LAYMT;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "dev.virts.staircardioWatch-Watch-AppTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/staircardioWatch Watch App.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/staircardioWatch Watch App";
+				WATCHOS_DEPLOYMENT_TARGET = 26.2;
+			};
+			name = Release;
+		};
+		A17661192F1C306B008322F2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = H4ND8LAYMT;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "dev.virts.staircardioWatch-Watch-AppUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_TARGET_NAME = "staircardioWatch Watch App";
+				WATCHOS_DEPLOYMENT_TARGET = 26.2;
+			};
+			name = Debug;
+		};
+		A176611A2F1C306B008322F2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = H4ND8LAYMT;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "dev.virts.staircardioWatch-Watch-AppUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_TARGET_NAME = "staircardioWatch Watch App";
+				WATCHOS_DEPLOYMENT_TARGET = 26.2;
+			};
+			name = Release;
+		};
 		A1CC5A3A2F1BDCAE0035E007 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -294,6 +677,9 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = staircardio/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "StairCardio uses Health data to read stair workouts and show your progress.";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "StairCardio saves stair workouts so you can track circuits over time.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -328,6 +714,9 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = staircardio/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "StairCardio uses Health data to read stair workouts and show your progress.";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "StairCardio saves stair workouts so you can track circuits over time.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -558,6 +947,33 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		A17661112F1C306B008322F2 /* Build configuration list for PBXNativeTarget "staircardioWatch Watch App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A17661122F1C306B008322F2 /* Debug */,
+				A17661132F1C306B008322F2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A17661152F1C306B008322F2 /* Build configuration list for PBXNativeTarget "staircardioWatch Watch AppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A17661162F1C306B008322F2 /* Debug */,
+				A17661172F1C306B008322F2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A17661182F1C306B008322F2 /* Build configuration list for PBXNativeTarget "staircardioWatch Watch AppUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A17661192F1C306B008322F2 /* Debug */,
+				A176611A2F1C306B008322F2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		A1CC5A102F1BDCAC0035E007 /* Build configuration list for PBXProject "staircardio" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
