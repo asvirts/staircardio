@@ -1,0 +1,83 @@
+//
+//  Localizable.strings
+//  staircardio
+//
+//  Created by opencode on 2026-01-17.
+//
+
+/* App Name */
+"app.name" = "StairCardio";
+
+/* Tab Bar */
+"tab.today" = "Today";
+"tab.analytics" = "Analytics";
+"tab.health" = "Health";
+"tab.settings" = "Settings";
+
+/* Today Screen */
+"today.title" = "Today's Stair Circuits";
+"today.progress" = "Progress toward daily goal";
+"today.add_circuit" = "Add one circuit";
+"today.add_circuit_hint" = "Double tap to increment your daily circuit count by one";
+"today.start_workout" = "Start Stair Session";
+"today.start_workout_hint" = "Double tap to start a new stair climbing workout session";
+"today.enable_healthkit" = "Enable HealthKit";
+"today.reset" = "Reset Today";
+"today.reset_hint" = "Double tap to reset your circuit count to zero for today";
+"today.updating_reminders" = "Updating reminders";
+"today.updating_reminders_hint" = "Please wait while reminders are being updated";
+"today.syncing_history" = "Syncing workout history";
+"today.syncing_history_hint" = "Please wait while workout history is being synced";
+"today.goal_reached" = "Goal reached 🎉";
+"today.circuits_remaining" = "%d circuits left today";
+
+/* Analytics */
+"analytics.title" = "Analytics";
+"analytics.weekly_summary" = "Weekly Summary";
+"analytics.weekly_summary_hint" = "View weekly circuit statistics and trends";
+"analytics.monthly_summary" = "Monthly Summary";
+"analytics.monthly_summary_hint" = "View monthly circuit statistics and trends";
+"analytics.streak_calendar" = "Streak Calendar";
+"analytics.streak_calendar_hint" = "View calendar showing daily goal completion";
+"analytics.time_range_selector" = "Time range selector";
+"analytics.time_range_hint" = "Select time range for analytics display";
+
+/* Health */
+"health.title" = "Health";
+"health.dashboard" = "Health Dashboard";
+"health.dashboard_hint" = "View VO₂ max and resting heart rate trends";
+"health.insights" = "Health Insights";
+"health.insights_hint" = "View health correlations and fitness progress";
+"health.achievements" = "Achievements";
+"health.achievements_hint" = "View earned badges and progress";
+"health.vo2_max_trend" = "VO₂ Max Trend";
+"health.rhr_trend" = "Resting Heart Rate Trend";
+"health.no_data" = "No health data available yet.";
+"health.key_metrics" = "Key Health Metrics";
+
+/* Settings */
+"settings.title" = "Settings";
+"settings.daily_target" = "Daily Target & Reminders";
+"settings.daily_target_hint" = "Adjust daily circuit target and notification settings";
+"settings.advanced" = "Advanced Settings";
+"settings.advanced_hint" = "Configure work days and data management options";
+"settings.tips" = "Tips & Suggestions";
+"settings.tips_hint" = "View personalized workout tips and suggestions";
+"settings.workout_history" = "Workout History";
+"settings.workout_history_hint" = "View past stair climbing workout sessions";
+
+/* Achievements */
+"achievements.title" = "Achievements";
+"achievements.no_achievements" = "No achievements yet. Keep completing circuits to earn badges!";
+
+/* Common */
+"common.save" = "Save";
+"common.cancel" = "Cancel";
+"common.done" = "Done";
+"common.ok" = "OK";
+"common.loading" = "Loading...";
+"common.error" = "Error";
+
+/* Progress */
+"progress.completed" = "%d out of %d circuits completed";
+"progress.percent" = "%d percent";

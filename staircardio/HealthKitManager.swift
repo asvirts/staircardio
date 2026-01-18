@@ -39,7 +39,15 @@ final class HealthKitManager: NSObject, ObservableObject {
             HKObjectType.quantityType(forIdentifier: .flightsClimbed)
         ].compactMap { $0 })
 
-        let readTypes: Set<HKObjectType> = Set(shareTypes)
+        let readTypes = Set([
+            HKObjectType.workoutType(),
+            HKObjectType.quantityType(forIdentifier: .activeEnergyBurned),
+            HKObjectType.quantityType(forIdentifier: .heartRate),
+            HKObjectType.quantityType(forIdentifier: .stepCount),
+            HKObjectType.quantityType(forIdentifier: .flightsClimbed),
+            HKObjectType.quantityType(forIdentifier: .vo2Max),
+            HKObjectType.quantityType(forIdentifier: .restingHeartRate)
+        ].compactMap { $0 })
 
         do {
             try await healthStore.requestAuthorization(toShare: shareTypes, read: readTypes)
@@ -92,9 +100,11 @@ final class HealthKitManager: NSObject, ObservableObject {
         #endif
     }
 
-    func endWorkout() async -> HKWorkout? {
+    func endWorkout() async -> (HKWorkout?, WorkoutMetrics) {
         #if os(iOS)
-        guard let session = workoutSession, let builder = workoutBuilder else { return nil }
+        guard let session = workoutSession, let builder = workoutBuilder else {
+            return (nil, WorkoutMetrics(floors: liveFloors, activeEnergy: liveActiveEnergy, averageHeartRate: liveHeartRate))
+        }
         session.end()
         builder.endCollection(withEnd: Date()) { _, _ in }
 
@@ -108,11 +118,16 @@ final class HealthKitManager: NSObject, ObservableObject {
                         self.sessionErrorMessage = "Workout save failed: \(error.localizedDescription)"
                     }
                 }
-                continuation.resume(returning: workout)
+                let metrics = WorkoutMetrics(
+                    floors: self.liveFloors,
+                    activeEnergy: self.liveActiveEnergy,
+                    averageHeartRate: self.liveHeartRate
+                )
+                continuation.resume(returning: (workout, metrics))
             }
         }
         #else
-        return nil
+        return (nil, WorkoutMetrics(floors: 0, activeEnergy: 0, averageHeartRate: 0))
         #endif
     }
 
@@ -162,6 +177,64 @@ final class HealthKitManager: NSObject, ObservableObject {
                     return
                 }
                 continuation.resume(returning: values.reduce(0, +) / Double(values.count))
+            }
+            healthStore.execute(query)
+        }
+    }
+
+    func fetchVO2MaxSamples(limit: Int = 90) async -> [(date: Date, value: Double)] {
+        guard let vo2MaxType = HKQuantityType.quantityType(forIdentifier: .vo2Max) else {
+            return []
+        }
+
+        let startDate = Calendar.current.date(byAdding: .day, value: -limit, to: Date()) ?? Date()
+        let predicate = HKQuery.predicateForSamples(withStart: startDate, end: Date(), options: .strictStartDate)
+        let sort = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: false)
+
+        return await withCheckedContinuation { continuation in
+            let query = HKSampleQuery(
+                sampleType: vo2MaxType,
+                predicate: predicate,
+                limit: limit,
+                sortDescriptors: [sort]
+            ) { _, samples, _ in
+                let quantities = (samples as? [HKQuantitySample]) ?? []
+                let results = quantities.map {
+                    (
+                        date: $0.startDate,
+                        value: $0.quantity.doubleValue(for: HKUnit(from: "ml/kg·min"))
+                    )
+                }
+                continuation.resume(returning: results)
+            }
+            healthStore.execute(query)
+        }
+    }
+
+    func fetchRestingHeartRateSamples(limit: Int = 90) async -> [(date: Date, value: Double)] {
+        guard let restingHeartRateType = HKQuantityType.quantityType(forIdentifier: .restingHeartRate) else {
+            return []
+        }
+
+        let startDate = Calendar.current.date(byAdding: .day, value: -limit, to: Date()) ?? Date()
+        let predicate = HKQuery.predicateForSamples(withStart: startDate, end: Date(), options: .strictStartDate)
+        let sort = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: false)
+
+        return await withCheckedContinuation { continuation in
+            let query = HKSampleQuery(
+                sampleType: restingHeartRateType,
+                predicate: predicate,
+                limit: limit,
+                sortDescriptors: [sort]
+            ) { _, samples, _ in
+                let quantities = (samples as? [HKQuantitySample]) ?? []
+                let results = quantities.map {
+                    (
+                        date: $0.startDate,
+                        value: $0.quantity.doubleValue(for: HKUnit.count().unitDivided(by: .minute()))
+                    )
+                }
+                continuation.resume(returning: results)
             }
             healthStore.execute(query)
         }

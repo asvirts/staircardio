@@ -2,6 +2,8 @@ import SwiftUI
 
 struct WatchContentView: View {
     @EnvironmentObject private var syncManager: WatchSyncManager
+    @StateObject private var healthKitManager = WatchHealthKitManager()
+    @State private var isShowingWorkout = false
 
     var body: some View {
         NavigationStack {
@@ -15,6 +17,10 @@ struct WatchContentView: View {
                 ProgressView(value: progressValue)
                     .progressViewStyle(.circular)
 
+                Text(syncManager.syncStatus.rawValue)
+                    .font(.footnote)
+                    .foregroundStyle(.secondary)
+
                 Button {
                     syncManager.incrementOffline()
                 } label: {
@@ -22,15 +28,31 @@ struct WatchContentView: View {
                 }
                 .buttonStyle(.borderedProminent)
 
-                NavigationLink("Start Stair Session") {
-                    WatchWorkoutPlaceholderView()
+                Button {
+                    isShowingWorkout = true
+                } label: {
+                    Text("Start Stair Session")
                 }
                 .buttonStyle(.bordered)
+                .disabled(!healthKitManager.isAuthorized)
+
+                if let summary = syncManager.lastWorkoutSummary {
+                    NavigationLink("Last Session") {
+                        WatchWorkoutSummaryView(summary: summary)
+                    }
+                }
             }
             .padding()
         }
         .onAppear {
             syncManager.requestLatestSummary()
+            Task {
+                await healthKitManager.requestAuthorization()
+            }
+        }
+        .sheet(isPresented: $isShowingWorkout) {
+            WatchWorkoutSessionView()
+                .environmentObject(syncManager)
         }
     }
 

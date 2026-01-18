@@ -82,45 +82,47 @@
 **Goal:** Add watchOS app for frictionless micro-logging.
 
 ### Watch App Structure
-- [ ] Create watchOS target in Xcode project
-- [ ] Watch App entry point
-- [ ] Basic UI setup (WatchKit)
+- [x] Create watchOS target in Xcode project
+- [x] Watch App entry point
+- [x] Basic UI setup (WatchKit)
 
 ### Watch Connectivity
-- [ ] Add WatchConnectivity framework to iOS app
-- [ ] Add WCSession delegate to iOS app
-- [ ] Sync fields: completed, target, dayKey
-- [ ] Bi-directional sync (Watch → Phone, Phone → Watch)
+- [x] Add WatchConnectivity framework to iOS app
+- [x] Add WCSession delegate to iOS app
+- [x] Sync fields: completed, target, dayKey
+- [x] Bi-directional sync (Watch → Phone, Phone → Watch)
 
 ### Watch UI
-- [ ] Today's summary (completed / target)
-- [ ] Progress indicator (ring or bar)
-- [ ] +1 Quick Circuit button
-- [ ] Refresh button for manual sync
+- [x] Today's summary (completed / target)
+- [x] Progress indicator (ring or bar)
+- [x] +1 Quick Circuit button
+- [x] Refresh button for manual sync
 
 ### Watch UX
-- [ ] Haptic feedback on +1 tap
-- [ ] Sync status indicator (synced/syncing/error)
-- [ ] Auto-sync on circuit completion
+- [x] Haptic feedback on +1 tap
+- [x] Sync status indicator (synced/syncing/error)
+- [x] Auto-sync on circuit completion
 
 ### Phone App Changes
-- [ ] WatchConnectivity session setup
-- [ ] Data sync observers
-- [ ] Update UI when data changes from Watch
+- [x] WatchConnectivity session setup
+- [x] Data sync observers
+- [x] Update UI when data changes from Watch
 
 ---
 
 ## Phase v0.4 — Workout Mode
 **Goal:** Add HealthKit workout capture for accurate metrics.
 
+**Phase v0.4 Status:** ✅ COMPLETE - workout mode and watch session ready
+
 ### HealthKit Integration
 - [x] Add HealthKit framework to iOS app
-- [ ] Add HealthKit usage descriptions to Info.plist
-- [ ] Request HealthKit permissions on first launch
+- [x] Add HealthKit usage descriptions to Info.plist
+- [x] Request HealthKit permissions on first launch
 - [x] Permission types: Active Energy, Heart Rate, Steps, Floors Climbed
 
 ### Watch Workout Mode
-- [ ] "Start Stair Session" button on Watch
+- [x] "Start Stair Session" button on Watch
 - [x] HKWorkoutSession setup for stair climbing
 - [x] Live metrics display during workout:
   - [x] Duration timer
@@ -128,16 +130,16 @@
   - [x] Current heart rate
   - [x] Calories burned
 - [x] End workout button
-- [ ] Workout summary screen
+- [x] Workout summary screen
 
 ### Auto-Conversion Logic
 - [x] Convert floors climbed to circuit count (configurable ratio)
-- [ ] Option to adjust circuit count after workout
+- [x] Option to adjust circuit count after workout
 
 ### Phone App Integration
 - [x] HealthKit data query for past workouts
 - [x] Display workout history
-- [ ] Manual circuit adjustment from workout data
+- [x] Manual circuit adjustment from workout data
 
 ### Persistence
 - [x] Store workout references in DayLog
@@ -182,7 +184,44 @@
 ### iCloud Sync (New)
 - [x] Enable CloudKit sync for SwiftData
 - [x] Show iCloud sync status in Settings
+- [x] Add CloudKit sync validation documentation
 - [ ] Validate CloudKit setup on real devices
+
+### CloudKit Sync Validation Instructions
+
+To validate iCloud sync is working correctly across devices:
+
+1. **Prerequisites**
+   - Two or more iOS devices signed into the same Apple ID
+   - iCloud Drive enabled on all devices
+   - Stable network connection
+   - App installed on both devices
+
+2. **Test Procedure**
+   a. Open app on Device A
+   b. Add a circuit (+1 Quick Circuit)
+   c. Verify the completed count increased
+   d. Close the app on Device A
+   e. Wait 30-60 seconds for iCloud sync
+   f. Open app on Device B
+   g. Verify the same circuit count is displayed
+
+3. **Verification Steps**
+   - Check Settings > iCloud Sync status shows "Enabled" on both devices
+   - Add circuits on Device A, verify they appear on Device B
+   - Change daily target on Device B, verify it updates on Device A
+   - Complete a workout on Device A, verify it syncs to Device B
+
+4. **Troubleshooting**
+   - If data doesn't sync: check network connection and iCloud Drive status
+   - If sync fails repeatedly: check iCloud account sign-in status
+   - If data appears duplicated: this is normal during initial sync, resolves automatically
+   - For persistent issues: verify CloudKit container configuration matches bundle ID
+
+5. **CloudKit Dashboard Monitoring**
+   - Access: https://icloud.developer.apple.com/dashboard/
+   - Monitor database usage and sync logs
+   - Check for error messages related to sync operations
 
 ### Backend (Optional)
 - [ ] Push notification support
@@ -216,8 +255,64 @@
 - [ ] English base language
 - [ ] Consider major markets for translation
 
+### Health Metrics
+- [x] Fetch VO₂ max from HealthKit
+- [x] Fetch resting heart rate from HealthKit
+- [x] Correlate circuit frequency with health improvements
+- [x] Display trends over time
+
+### Behavioral Features
+- [x] Plateau detection (no progress for X days)
+- [x] Behavioral nudges based on patterns
+- [x] Suggested target adjustments
+- [x] Weekly achievement badges
+
+### Advanced Settings
+- [x] Target auto-adjustment (smart or manual)
+- [x] Workday customization (different days/hours)
+- [x] Circuit definition (floors per circuit)
+- [x] Data export option
+
+### iCloud Sync (New)
+- [x] Enable CloudKit sync for SwiftData
+- [x] Show iCloud sync status in Settings
+- [x] Add CloudKit sync validation documentation
+- [ ] Validate CloudKit setup on real devices
+
+### Backend (Optional)
+- [ ] Push notification support
+- [ ] Server-side analytics
+- [ ] Account system (if needed)
+
+### Premium Features (Optional)
+- [ ] Subscription tier system
+- [ ] Advanced insights
+- [ ] Personalized coaching
+- [ ] Integration with other wearables (Oura, Whoop)
+
+---
+
+## Cross-Phase Infrastructure
+
+### Code Quality
+- [x] Unit tests for model logic
+- [x] UI tests for critical flows
+- [x] Error handling and logging
+- [x] Code documentation
+
+### Accessibility
+- [x] VoiceOver support for all screens
+- [x] Dynamic Type support
+- [x] Color contrast compliance
+- [x] Accessibility labels for all interactive elements
+
+### Localization
+- [x] String localization setup
+- [x] English base language
+- [ ] Consider major markets for translation
+
 ### App Store
-- [ ] App icon (all sizes)
+- [x] App icon (all sizes)
 - [ ] Screenshots
 - [ ] App Store description
 - [ ] Privacy policy
@@ -240,5 +335,7 @@
 
 ## Tracking Notes
 - Last updated: 2026-01-17
-- Current phase: v0.1 (Local MVP)
-- Next phase: v0.2 (Reminders)
+- Current phase: v1.0 (Health + Insights) - COMPLETED
+- Next phase: Post-v1.0 enhancements
+
+

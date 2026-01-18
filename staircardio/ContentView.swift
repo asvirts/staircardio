@@ -7,10 +7,8 @@ struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @EnvironmentObject private var watchSyncManager: WatchSyncManager
     @EnvironmentObject private var healthKitManager: HealthKitManager
+    @EnvironmentObject private var tabSelectionManager: TabSelectionManager
     @Query private var todayLogs: [DayLog]
-    @State private var isShowingSettings = false
-    @State private var targetInput = ""
-    @State private var floorsPerCircuitInput = ""
     @StateObject private var appModel = AppModel()
     @State private var isRefreshingNotifications = false
     @State private var isSyncingHistory = false
@@ -117,77 +115,6 @@ struct ContentView: View {
             }
             .padding()
             .navigationTitle("StairCardio")
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    HStack(spacing: 16) {
-                        NavigationLink {
-                            WorkoutHistoryView()
-                        } label: {
-                            Image(systemName: "clock.arrow.circlepath")
-                        }
-                        .accessibilityLabel("Workout history")
-
-                        Button {
-                            targetInput = String(today.target)
-                            floorsPerCircuitInput = String(appModel.floorsPerCircuit)
-                            isShowingSettings = true
-                        } label: {
-                            Image(systemName: "gearshape")
-                        }
-                        .accessibilityLabel("Edit daily target")
-                    }
-                }
-            }
-            .onAppear {
-                appModel.scheduleOrCancelReminders(goalReached: goalReached)
-                watchSyncManager.refreshSummary()
-            }
-            .onOpenURL { url in
-                if url.absoluteString == DeepLinkHandler.todayRoute {
-                    isShowingSettings = false
-                }
-            }
-            .sheet(isPresented: $isShowingSettings) {
-                NavigationStack {
-                    Form {
-                        Section("Daily Target") {
-                            TextField("Target circuits", text: $targetInput)
-                                .keyboardType(.numberPad)
-                        }
-
-                        Section("Workout Settings") {
-                            TextField("Floors per circuit", text: $floorsPerCircuitInput)
-                                .keyboardType(.numberPad)
-                            Text("Used to convert workouts into circuits.")
-                                .font(.footnote)
-                                .foregroundStyle(.secondary)
-                        }
-
-                        remindersSection
-
-                        Section("iCloud Sync") {
-                            LabeledContent("Status", value: iCloudStatusText)
-                            Text(iCloudStatusDetail)
-                                .font(.footnote)
-                                .foregroundStyle(.secondary)
-                        }
-                    }
-                    .navigationTitle("Settings")
-                    .toolbar {
-                        ToolbarItem(placement: .cancellationAction) {
-                            Button("Cancel") {
-                                isShowingSettings = false
-                            }
-                        }
-                        ToolbarItem(placement: .confirmationAction) {
-                            Button("Save") {
-                                saveTarget()
-                            }
-                            .disabled(!isTargetValid || !isFloorsPerCircuitValid)
-                        }
-                    }
-                }
-            }
         .sheet(isPresented: $isShowingWorkoutSession) {
             WorkoutSessionView { workout, metrics in
                 await handleWorkoutCompletion(workout, metrics: metrics)
@@ -272,126 +199,8 @@ struct ContentView: View {
         }
     }
 
-    private var parsedTarget: Int? {
-        let trimmed = targetInput.trimmingCharacters(in: .whitespacesAndNewlines)
-        return Int(trimmed)
-    }
-
-    private var remindersSection: some View {
-        Section("Reminders") {
-            Toggle("Enable reminders", isOn: $appModel.remindersEnabled)
-                .onChange(of: appModel.remindersEnabled) { (_, newValue: Bool) in
-                    Task {
-                        isRefreshingNotifications = true
-                        await appModel.handleRemindersToggleChanged(
-                            enabled: newValue,
-                            goalReached: goalReached
-                        )
-                        isRefreshingNotifications = false
-                    }
-                }
-
-            DatePicker(
-                "Start time",
-                selection: Binding(
-                    get: { dateFromMinutes(appModel.startMinutes) },
-                    set: { appModel.startMinutes = minutesFromDate($0) }
-                ),
-                displayedComponents: .hourAndMinute
-            )
-            .disabled(!appModel.remindersEnabled)
-            .onChange(of: appModel.startMinutes) { _, _ in
-                appModel.scheduleOrCancelReminders(goalReached: goalReached)
-            }
-
-            DatePicker(
-                "End time",
-                selection: Binding(
-                    get: { dateFromMinutes(appModel.endMinutes) },
-                    set: { appModel.endMinutes = minutesFromDate($0) }
-                ),
-                displayedComponents: .hourAndMinute
-            )
-            .disabled(!appModel.remindersEnabled)
-            .onChange(of: appModel.endMinutes) { _, _ in
-                appModel.scheduleOrCancelReminders(goalReached: goalReached)
-            }
-
-            Picker("Interval", selection: $appModel.intervalMinutes) {
-                ForEach(NotificationIntervalOption.allCases, id: \.self) { option in
-                    Text(option.label)
-                        .tag(option.minutes)
-                }
-            }
-            .disabled(!appModel.remindersEnabled)
-            .onChange(of: appModel.intervalMinutes) { _, _ in
-                appModel.intervalMinutes = clampedInterval(appModel.intervalMinutes)
-                appModel.scheduleOrCancelReminders(goalReached: goalReached)
-            }
-
-            Text("Reminders run Monday through Friday during work hours.")
-                .font(.footnote)
-                .foregroundStyle(.secondary)
-
-            if let status = appModel.notificationStatusMessage {
-                Text(status)
-                    .font(.footnote)
-                    .foregroundStyle(.secondary)
-            }
-        }
-    }
-
     private var goalReached: Bool {
         today.completed >= today.target
-    }
-
-    private func dateFromMinutes(_ minutes: Int) -> Date {
-        let clamped = max(minutes, 0)
-        let hour = clamped / 60
-        let minute = clamped % 60
-        return Calendar.current.date(bySettingHour: hour, minute: minute, second: 0, of: Date()) ?? Date()
-    }
-
-    private func minutesFromDate(_ date: Date) -> Int {
-        let components = Calendar.current.dateComponents([.hour, .minute], from: date)
-        return (components.hour ?? 0) * 60 + (components.minute ?? 0)
-    }
-
-    private func clampedInterval(_ minutes: Int) -> Int {
-        NotificationIntervalOption.closest(to: minutes).minutes
-    }
-
-    private var iCloudStatusText: String {
-        if iCloudToken == nil {
-            return "Not Signed In"
-        }
-        return "Enabled"
-    }
-
-    private var iCloudStatusDetail: String {
-        if iCloudToken == nil {
-            return "Sign in to iCloud in Settings to enable sync across devices."
-        }
-        return "Sync uses your device’s iCloud account to keep data up to date."
-    }
-
-    private var iCloudToken: NSObjectProtocol? {
-        FileManager.default.ubiquityIdentityToken
-    }
-
-    private var parsedFloorsPerCircuit: Int? {
-        let trimmed = floorsPerCircuitInput.trimmingCharacters(in: .whitespacesAndNewlines)
-        return Int(trimmed)
-    }
-
-    private var isTargetValid: Bool {
-        guard let value = parsedTarget else { return false }
-        return value > 0
-    }
-
-    private var isFloorsPerCircuitValid: Bool {
-        guard let value = parsedFloorsPerCircuit else { return false }
-        return value > 0
     }
 
     private func handleWorkoutCompletion(_ workout: HKWorkout?, metrics: WorkoutMetrics) async {
@@ -472,23 +281,6 @@ struct ContentView: View {
             log.workoutUUID == workoutUUID
         })
         return (try? modelContext.fetch(descriptor).first) != nil
-    }
-
-    private func saveTarget() {
-        guard let targetValue = parsedTarget, targetValue > 0 else { return }
-        guard let floorsValue = parsedFloorsPerCircuit, floorsValue > 0 else { return }
-        today.target = targetValue
-        appModel.floorsPerCircuit = floorsValue
-
-        do {
-            try modelContext.save()
-        } catch {
-            print("Failed to save daily target: \(error)")
-        }
-
-        appModel.scheduleOrCancelReminders(goalReached: goalReached)
-        watchSyncManager.refreshSummary()
-        isShowingSettings = false
     }
 }
 

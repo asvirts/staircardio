@@ -1,30 +1,25 @@
 import HealthKit
 import SwiftUI
 
-struct WorkoutSessionView: View {
-    @EnvironmentObject private var healthKitManager: HealthKitManager
+struct WatchWorkoutSessionView: View {
+    @EnvironmentObject private var syncManager: WatchSyncManager
     @Environment(\.dismiss) private var dismiss
+    @StateObject private var workoutManager = WatchWorkoutManager()
     @State private var isEnding = false
 
-    let onEnd: (HKWorkout?, WorkoutMetrics) async -> Void
-
     var body: some View {
-        VStack(spacing: 20) {
+        VStack(spacing: 10) {
             Text("Stair Session")
-                .font(.title2.weight(.semibold))
+                .font(.headline)
 
-            VStack(spacing: 12) {
+            VStack(spacing: 6) {
                 metricRow(label: "Duration", value: durationText)
-                metricRow(label: "Floors", value: formattedNumber(healthKitManager.liveFloors))
+                metricRow(label: "Floors", value: formattedNumber(workoutManager.liveFloors))
                 metricRow(label: "Heart Rate", value: heartRateText)
-                metricRow(label: "Active Energy", value: energyText)
+                metricRow(label: "Energy", value: energyText)
             }
-            .frame(maxWidth: .infinity)
-            .padding()
-            .background(Color(.systemGray6))
-            .clipShape(RoundedRectangle(cornerRadius: 16))
 
-            if let errorMessage = healthKitManager.sessionErrorMessage {
+            if let errorMessage = workoutManager.sessionErrorMessage {
                 Text(errorMessage)
                     .font(.footnote)
                     .foregroundStyle(.secondary)
@@ -34,24 +29,22 @@ struct WorkoutSessionView: View {
             Button(role: .destructive) {
                 Task {
                     isEnding = true
-                    let result = await healthKitManager.endWorkout()
-                    await onEnd(result.0, result.1)
+                    if let summary = await workoutManager.endWorkout() {
+                        syncManager.recordWorkoutSummary(summary)
+                    }
                     isEnding = false
                     dismiss()
                 }
             } label: {
                 Text(isEnding ? "Ending..." : "End Session")
-                    .font(.headline)
                     .frame(maxWidth: .infinity)
-                    .padding()
             }
             .buttonStyle(.borderedProminent)
             .disabled(isEnding)
         }
         .padding()
         .onAppear {
-            healthKitManager.resetLiveMetrics()
-            healthKitManager.startWorkout()
+            workoutManager.startWorkout()
         }
         .interactiveDismissDisabled(isEnding)
     }
@@ -60,19 +53,19 @@ struct WorkoutSessionView: View {
         let formatter = DateComponentsFormatter()
         formatter.allowedUnits = [.minute, .second]
         formatter.zeroFormattingBehavior = .pad
-        return formatter.string(from: healthKitManager.liveDuration) ?? "0:00"
+        return formatter.string(from: workoutManager.liveDuration) ?? "0:00"
     }
 
     private var heartRateText: String {
-        if healthKitManager.liveHeartRate > 0 {
-            return "\(Int(healthKitManager.liveHeartRate)) bpm"
+        if workoutManager.liveHeartRate > 0 {
+            return "\(Int(workoutManager.liveHeartRate)) bpm"
         }
         return "--"
     }
 
     private var energyText: String {
-        if healthKitManager.liveActiveEnergy > 0 {
-            return "\(formattedNumber(healthKitManager.liveActiveEnergy)) kcal"
+        if workoutManager.liveActiveEnergy > 0 {
+            return "\(formattedNumber(workoutManager.liveActiveEnergy)) kcal"
         }
         return "--"
     }
@@ -80,7 +73,7 @@ struct WorkoutSessionView: View {
     private func metricRow(label: String, value: String) -> some View {
         HStack {
             Text(label)
-                .font(.subheadline)
+                .font(.footnote)
                 .foregroundStyle(.secondary)
             Spacer()
             Text(value)
@@ -96,9 +89,7 @@ struct WorkoutSessionView: View {
     }
 }
 
-#Preview("WorkoutSessionView") {
-    WorkoutSessionView { _, _ in
-        await Task.yield()
-    }
-    .environmentObject(HealthKitManager())
+#Preview("WatchWorkoutSessionView") {
+    WatchWorkoutSessionView()
+        .environmentObject(WatchSyncManager(isPreview: true))
 }

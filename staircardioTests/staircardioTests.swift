@@ -16,8 +16,8 @@ final class staircardioTests: XCTestCase {
 
     override func setUpWithError() throws {
         let configuration = ModelConfiguration(isStoredInMemoryOnly: true)
-        container = try ModelContainer(for: DayLog.self, configurations: configuration)
-        context = container.mainContext
+        container = try ModelContainer(for: [DayLog.self, WorkoutLog.self, Achievement.self], configurations: configuration)
+        context = ModelContext(container)
     }
 
     override func tearDownWithError() throws {
@@ -176,6 +176,182 @@ final class staircardioTests: XCTestCase {
             let log = DayLog(dayKey: "2026-01-17", completed: 5, target: 10)
             _ = Double(log.completed) / Double(log.target)
         }
+    }
+
+    func testWorkoutLogInitialization() throws {
+        let uuid = UUID()
+        let startDate = Date()
+        let endDate = startDate.addingTimeInterval(300)
+        let log = WorkoutLog(
+            workoutUUID: uuid,
+            startDate: startDate,
+            endDate: endDate,
+            duration: 300,
+            floors: 12.0,
+            activeEnergy: 150.5,
+            averageHeartRate: 120.0,
+            circuits: 3
+        )
+
+        XCTAssertEqual(log.workoutUUID, uuid)
+        XCTAssertEqual(log.startDate, startDate)
+        XCTAssertEqual(log.endDate, endDate)
+        XCTAssertEqual(log.duration, 300)
+        XCTAssertEqual(log.floors, 12.0)
+        XCTAssertEqual(log.activeEnergy, 150.5)
+        XCTAssertEqual(log.averageHeartRate, 120.0)
+        XCTAssertEqual(log.circuits, 3)
+        XCTAssertNil(log.appliedDayKey)
+    }
+
+    func testWorkoutLogWithAppliedDayKey() throws {
+        let log = WorkoutLog(
+            workoutUUID: UUID(),
+            startDate: Date(),
+            endDate: Date(),
+            duration: 300,
+            floors: 12.0,
+            activeEnergy: 150.5,
+            averageHeartRate: 120.0,
+            circuits: 3,
+            appliedDayKey: "2026-01-17"
+        )
+
+        XCTAssertEqual(log.appliedDayKey, "2026-01-17")
+    }
+
+    func testWorkoutLogPersistence() throws {
+        let uuid = UUID()
+        let startDate = Date()
+        let endDate = startDate.addingTimeInterval(300)
+
+        let log = WorkoutLog(
+            workoutUUID: uuid,
+            startDate: startDate,
+            endDate: endDate,
+            duration: 300,
+            floors: 12.0,
+            activeEnergy: 150.5,
+            averageHeartRate: 120.0,
+            circuits: 3
+        )
+
+        context.insert(log)
+        try context.save()
+
+        let descriptor = FetchDescriptor<WorkoutLog>()
+        let fetchedLogs = try context.fetch(descriptor)
+
+        XCTAssertEqual(fetchedLogs.count, 1)
+        XCTAssertEqual(fetchedLogs.first?.workoutUUID, uuid)
+        XCTAssertEqual(fetchedLogs.first?.floors, 12.0)
+        XCTAssertEqual(fetchedLogs.first?.circuits, 3)
+    }
+
+    func testWorkoutLogDurationCalculation() throws {
+        let startDate = Date()
+        let endDate = startDate.addingTimeInterval(600)
+        let duration = endDate.timeIntervalSince(startDate)
+
+        XCTAssertEqual(duration, 600)
+    }
+
+    func testWorkoutLogCircuitsFromFloors() throws {
+        let floorsPerCircuit = 4.0
+        let floors = 12.0
+        let circuits = Int((floors / floorsPerCircuit).rounded(.down))
+
+        XCTAssertEqual(circuits, 3)
+    }
+
+    func testWorkoutLogZeroFloors() throws {
+        let log = WorkoutLog(
+            workoutUUID: UUID(),
+            startDate: Date(),
+            endDate: Date(),
+            duration: 300,
+            floors: 0.0,
+            activeEnergy: 0.0,
+            averageHeartRate: 0.0,
+            circuits: 0
+        )
+
+        XCTAssertEqual(log.floors, 0.0)
+        XCTAssertEqual(log.circuits, 0)
+    }
+
+    func testWorkoutLogMultipleLogs() throws {
+        let log1 = WorkoutLog(
+            workoutUUID: UUID(),
+            startDate: Date(),
+            endDate: Date(),
+            duration: 300,
+            floors: 12.0,
+            activeEnergy: 150.5,
+            averageHeartRate: 120.0,
+            circuits: 3
+        )
+
+        let log2 = WorkoutLog(
+            workoutUUID: UUID(),
+            startDate: Date(),
+            endDate: Date(),
+            duration: 400,
+            floors: 16.0,
+            activeEnergy: 200.5,
+            averageHeartRate: 125.0,
+            circuits: 4
+        )
+
+        context.insert(log1)
+        context.insert(log2)
+        try context.save()
+
+        let descriptor = FetchDescriptor<WorkoutLog>()
+        let fetchedLogs = try context.fetch(descriptor)
+
+        XCTAssertEqual(fetchedLogs.count, 2)
+    }
+
+    func testWorkoutLogDefaultValues() throws {
+        let log = WorkoutLog(
+            workoutUUID: UUID(),
+            startDate: Date(),
+            endDate: Date(),
+            duration: 300,
+            floors: 12.0,
+            activeEnergy: 150.5,
+            averageHeartRate: 120.0,
+            circuits: 3
+        )
+
+        XCTAssertNotNil(log.id)
+        XCTAssertNotNil(log.workoutUUID)
+    }
+
+    func testWorkoutLogFetchByUUID() throws {
+        let uuid = UUID()
+        let log = WorkoutLog(
+            workoutUUID: uuid,
+            startDate: Date(),
+            endDate: Date(),
+            duration: 300,
+            floors: 12.0,
+            activeEnergy: 150.5,
+            averageHeartRate: 120.0,
+            circuits: 3
+        )
+
+        context.insert(log)
+        try context.save()
+
+        let descriptor = FetchDescriptor<WorkoutLog>(
+            predicate: #Predicate { $0.workoutUUID == uuid }
+        )
+        let fetchedLogs = try context.fetch(descriptor)
+
+        XCTAssertEqual(fetchedLogs.count, 1)
+        XCTAssertEqual(fetchedLogs.first?.workoutUUID, uuid)
     }
 
 }

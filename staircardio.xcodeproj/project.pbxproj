@@ -518,6 +518,7 @@
 				DEVELOPMENT_TEAM = H4ND8LAYMT;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = staircardioWatch/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = staircardioWatch;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = dev.virts.staircardio;
@@ -552,6 +553,7 @@
 				DEVELOPMENT_TEAM = H4ND8LAYMT;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = staircardioWatch/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = staircardioWatch;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = dev.virts.staircardio;

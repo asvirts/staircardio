@@ -8,9 +8,17 @@ struct staircardioApp: App {
     private let watchSyncManager = WatchSyncManager()
     private let notificationHandler = NotificationHandler()
     private let healthKitManager = HealthKitManager()
+    private let tabSelectionManager = TabSelectionManager()
 
     init() {
-        let schema = Schema([DayLog.self, WorkoutLog.self])
+        let schema = Schema([
+            DayLog.self,
+            WorkoutLog.self,
+            Achievement.self,
+            VO2MaxRecord.self,
+            RestingHeartRateRecord.self,
+            HealthCorrelation.self
+        ])
         let configuration = ModelConfiguration(
             schema: schema,
             cloudKitDatabase: .private(CloudKitConfig.containerIdentifier)
@@ -29,9 +37,10 @@ struct staircardioApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            TabContentView()
                 .environmentObject(watchSyncManager)
                 .environmentObject(healthKitManager)
+                .environmentObject(tabSelectionManager)
         }
         .modelContainer(modelContainer)
     }

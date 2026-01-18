@@ -11,6 +11,7 @@ final class WatchSyncManager: NSObject, ObservableObject {
 
     private var modelContainer: ModelContainer?
     private let remindersModel = AppModel()
+    private let floorsPerCircuitDefaults = UserDefaults.standard
     private let dateFormatter: DateFormatter
     private var todayKey: String {
         dateFormatter.string(from: Date())
@@ -38,9 +39,41 @@ final class WatchSyncManager: NSObject, ObservableObject {
     func refreshSummary() {
         guard let context = modelContainer?.mainContext else { return }
         let log = fetchTodayLog(using: context)
-        lastSummary = DaySummary(dayKey: log.dayKey, completed: log.completed, target: log.target)
+        let storedFloors = floorsPerCircuitDefaults.integer(forKey: "floorsPerCircuit")
+        let floorsPerCircuit = storedFloors > 0 ? storedFloors : 4
+        lastSummary = DaySummary(
+            dayKey: log.dayKey,
+            completed: log.completed,
+            target: log.target,
+            floorsPerCircuit: floorsPerCircuit
+        )
         sendSummary()
         remindersModel.scheduleOrCancelReminders(goalReached: log.completed >= log.target)
+    }
+
+    func sendWorkoutSummary(_ summary: WatchWorkoutSummary) {
+        #if canImport(WatchConnectivity)
+        guard WCSession.isSupported() else { return }
+        let session = WCSession.default
+        guard session.activationState == .activated else { return }
+        guard var payload = lastSummary?.payload else { return }
+        payload[WatchConnectivityKeys.workoutPayload] = summaryPayload(summary)
+        do {
+            try session.updateApplicationContext(payload)
+        } catch {
+            print("Failed to update watch workout summary: \(error)")
+        }
+        #endif
+    }
+
+    private func summaryPayload(_ summary: WatchWorkoutSummary) -> [String: Any] {
+        [
+            WatchWorkoutSummaryPayload.dateKey: summary.date,
+            WatchWorkoutSummaryPayload.durationKey: summary.duration,
+            WatchWorkoutSummaryPayload.floorsKey: summary.floors,
+            WatchWorkoutSummaryPayload.activeEnergyKey: summary.activeEnergy,
+            WatchWorkoutSummaryPayload.averageHeartRateKey: summary.averageHeartRate
+        ]
     }
 
     func applyIncrement(count: Int) {
